@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Notes</title>
+    <link
+        href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script defer src="script.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div id="app">
+      <div class="container mx-auto">
+        <div class="flex justify-center">
+          <div class="w-full max-w-xl mt-10">
+            <h1 class="text-6xl text-center">Notes</h1>
+
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <p class="text-center text-gray-500" v-if="!notes.length">
+                <em>Pas de notes.</em>
+              </p>
+              <p v-else class="text-center text-red-700 mb-5">
+              </p>
+
+              <ul>
+                  
+                <li class="p-3 bg-gray-200 my-1" v-for="note in notes">
+                    {{ str_limit(note.text,30) }}
+                    <a v-on:click="removeNote(note)" class="float-right" href="#"
+                        ><i class="fas fa-trash text-red-700"></i
+                    ></a>
+                    <div p-1>
+                        <textarea type="text" class="w-100 form-control display_none" placeholder="note" v-model="note.text"></textarea>
+                    </div>
+                    <em v-if="note.text.length < 2" >{{ note.text.length }} lettre</em>
+                    <em v-else>{{ note.text.length }} lettres</em>
+                </li>
+              </ul>
+
+              <br class="my-8" />
+
+              <div class="mb-4">
+                <div
+                  class="flex items-center border-b border-b-2 border-red-500 py-2"
+                >
+                  <input
+                    v-model="note"
+                    v-on:keyup.enter="addNote()"
+                    class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    type="text"
+                    autofocus
+                  />
+                  <button
+                    v-bind:disabled="!this.note"
+                    v-on:click.stop.prevent="addNote()"
+                    v-bind:class="[ this.note ? 'opacity-100' : 'opacity-50' ]"
+                    class="flex-shrink-0 bg-red-600 hover:bg-red-700 border-red-600 hover:border-red-700 text-sm border-4 text-white py-1 px-2 rounded"
+                    type="button"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
