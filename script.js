@@ -2,7 +2,7 @@ const app = Vue.createApp({
     data() {
       return {
         notes: [],
-        note: "",
+        note: "", 
       };
     },
     methods: {
